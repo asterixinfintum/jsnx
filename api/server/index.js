@@ -13,11 +13,10 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Configure the file storage destination and filename using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Save to /app/uploads which is mounted to the host's ../uploads
-    cb(null, path.join(__dirname, 'uploads'));
+    // Reference uploads folder from within the dist folder
+    cb(null, path.join(__dirname, '..', 'uploads')); // Going up one level from dist to find uploads
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
