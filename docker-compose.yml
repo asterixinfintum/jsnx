@@ -19,3 +19,5 @@ services:
     build: ./api
     environment:
       - PORT=8001
+    volumes:
+      - ../uploads:/app/uploads
