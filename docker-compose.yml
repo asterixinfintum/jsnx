@@ -21,6 +21,6 @@ services:
   api:
     container_name: api
     restart: always
-    build: ./serverapi
+    build: ./api
     environment:
       - PORT=8001
