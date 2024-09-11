@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  server:
+    container_name: server
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/data/certs:/etc/nginx/certs
+    depends_on:
+      - api
+
+  db:
+    container_name: db
+    image: mongo
+    volumes:
+      - /data-vol:/data/db
+
+  api:
+    container_name: api
+    restart: always
+    build: ./serverapi
+    environment:
+      - PORT=8001
