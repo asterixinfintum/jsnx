@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
 const multer = require('multer');
+import bodyParser from 'body-parser';
 const fs = require('fs');
 const path = require('path');
+import http from "http";
+
+app.use(express.urlencoded({
+  extended: false
+}));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Configure the file storage destination and filename using Multer
 const storage = multer.diskStorage({
@@ -63,4 +72,13 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+const PORT = process.env.PORT || 3000;
+const server = http.createServer(app);
+
+server.listen(PORT, async (error) => {
+  if (error) {
+    return error;
+  }
+
+  return console.log(`server started on port here now ${PORT}`);
+});
