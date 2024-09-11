@@ -20,4 +20,4 @@ services:
     environment:
       - PORT=8001
     volumes:
-      - ../uploads:/app/uploads
+      - ./uploads:/app/uploads
